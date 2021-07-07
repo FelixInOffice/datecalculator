@@ -110,7 +110,7 @@
             var startDate = moment(document.getElementById("startDate").value);
             var endDate = moment(document.getElementById("endDate").value);
             if (document.getElementById("startDate").value == "" || document.getElementById("endDate").value == "") {
-                alert("請輸入所有日期");
+                alert("請輸入所有日期!");
             } else {
                 if (document.getElementById("includeStartDate").checked) {
                     result.innerHTML = endDate.diff(startDate,"days")+1;
@@ -124,7 +124,7 @@
             var startDate = moment(document.getElementById("startDate").value);
             var countOfDate = document.getElementById("countOfDate").value;
             if (document.getElementById("startDate").value == "" || countOfDate == "") {
-                alert("請輸入所有欄位");
+                alert("請輸入所有欄位!");
             } else {
                 if (document.getElementById("includeStartDate").checked) {
                     countOfDate--;
