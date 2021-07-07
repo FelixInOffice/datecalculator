@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./scripts/moment-with-locales.min.js"></script>
+
+    <link href="./styles/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <meta name="theme-color" content="#4cdbc4"> <!-- Change to your theme color -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-512x512.png"> <!-- Change to your icon image -->
+
+    <title>日子計算器</title>
+</head>
+<body class="day">
+    <table style="position: absolute;right: 10px; top: 0px">
+        <tr>
+            <td>深色主題切換：</td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="dayNightSwitcher" onchange="darkModeSwitcher()">
+                    <span class="slider round"></span>
+                </label>
+            </td>
+        </tr>
+    </table>
+
+    
+
+    <table style="margin: auto; line-height: 50px; margin-top: 25vh;">
+        <tr>
+            <td>計算方法：</td>
+            <td>
+                <select id="selectCal" onchange="choose()">
+                    <option value="countDayBetween">日子相差天數</option>
+                    <option value="whatTheDateIsAfterXDays">某天數後日期</option>
+                </select>
+            </td>
+        </tr>
+        <tr id="startDateDiv">
+            <td style="text-align: right;">開始日：</td><td><input type="date" id="startDate"></td>
+        </tr>
+        <tr id="endDateDiv">
+            <td style="text-align: right;">結束日：</td><td><input type="date" id="endDate"></td>
+        </tr>
+        <tr id="countOfDateDiv" style="display: none;">
+            <td style="text-align: right;">日數：</td><td><input type="number" id="countOfDate" min="0" style="width:50px"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><div id="includeStartDateDiv"><input type="checkbox" id="includeStartDate"><label for="includeStartDate">計埋開始嗰日</label></div></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;"><button id="cal" onclick="calDateBetween()">計算</button></td>
+        </tr>
+        <tr style="height: 60px;">
+            <td style="text-align: right;">結果：</td><td class="resultTD" style="text-align: center;"><div id="result"></div></td>
+        </tr>
+    </table>
+
+    <script>
+        moment.locale('zh-hk');
+
+        var switcher = document.getElementById("dayNightSwitcher");
+
+        function darkModeSwitcher() {
+            if (switcher.checked) {
+                document.body.setAttribute("class","night")
+            } else {
+                document.body.setAttribute("class","day")
+            }
+        }
+
+        var result = document.getElementById("result");
+
+        function choose() {
+            switch (document.getElementById("selectCal").value) {
+                case "whatTheDateIsAfterXDays":
+                    result.innerHTML = "";
+                    document.getElementById("endDateDiv").style.display = "none";
+                    document.getElementById("countOfDateDiv").style.display = "";
+                    document.getElementById("cal").setAttribute('onclick','calWhatTheDateIsAfterXDays()');
+                    break;
+                case "countDayBetween":
+                    result.innerHTML = "";
+                    document.getElementById("endDateDiv").style.display = "";
+                    document.getElementById("countOfDateDiv").style.display = "none";
+                    document.getElementById("cal").setAttribute('onclick','calDateBetween()');
+                    break;
+            }
+        }
+        
+        function calDateBetween() {
+            var startDate = moment(document.getElementById("startDate").value);
+            var endDate = moment(document.getElementById("endDate").value);
+            if (document.getElementById("startDate").value == "" || document.getElementById("endDate").value == "") {
+                alert("請輸入所有日期");
+            } else {
+                if (document.getElementById("includeStartDate").checked) {
+                    result.innerHTML = endDate.diff(startDate,"days")+1;
+                } else {
+                    result.innerHTML = endDate.diff(startDate,"days");
+                }
+            }
+        }
+
+        function calWhatTheDateIsAfterXDays() {
+            var startDate = moment(document.getElementById("startDate").value);
+            var countOfDate = document.getElementById("countOfDate").value;
+            if (document.getElementById("startDate").value == "" || countOfDate == "") {
+                alert("請輸入所有欄位");
+            } else {
+                if (document.getElementById("includeStartDate").checked) {
+                    countOfDate--;
+                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY-MM-DD");
+                } else {
+                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY-MM-DD");
+                }
+            }   
+        }
+    </script>
+
+    <div class="snackContainer">
+        <div id="snackbar">
+            有更新！<a href="#" class="snackCorss" onclick="window.location.reload();">撳呢度</a> 更新啦！<a href="#" style="margin-left: 10px;" onClick="this.parentNode.classList.remove('show');">&#10006;</a>
+        </div>
+    </div>
+    
+    <script>
+        // snakebar
+        function showUpdate() {
+            var x = document.getElementById("snackbar")
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1000000);
+        }
+    </script>
+    
+    <script src="./index.js" type="module"></script>
+</body>
+</html>
