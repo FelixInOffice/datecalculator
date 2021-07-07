@@ -1,5 +1,5 @@
 // Cache name
-const cacheName = 'v1.0';
+const cacheName = 'v8';
 
 // install cache
 self.addEventListener('install', e => {
