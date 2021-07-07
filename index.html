@@ -128,9 +128,9 @@
             } else {
                 if (document.getElementById("includeStartDate").checked) {
                     countOfDate--;
-                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY-MM-DD");
+                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY年MM月DD日");
                 } else {
-                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY-MM-DD");
+                    result.innerHTML = moment(moment(startDate).clone().add(countOfDate, 'days')).format("YYYY年MM月DD日");
                 }
             }   
         }
