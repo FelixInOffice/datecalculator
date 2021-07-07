@@ -67,7 +67,9 @@
 
         var switcher = document.getElementById("dayNightSwitcher");
 
-        document.body.setAttribute("class",localStorage.getItem("theme"));
+        if (localStorage.getItem("theme") !== null) {
+            document.body.setAttribute("class",localStorage.getItem("theme"));
+        }
 
         if (localStorage.getItem("theme") == "night") {
             $("#dayNightSwitcher").prop("checked", true);
