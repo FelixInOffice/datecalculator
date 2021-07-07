@@ -1,5 +1,5 @@
 // Cache name
-const cacheName = 'v1';
+const cacheName = 'v1.0';
 
 // install cache
 self.addEventListener('install', e => {
@@ -15,7 +15,7 @@ self.addEventListener('install', e => {
 							"./icon-192x192.png",
 							"./icon-256x256.png",
 							"./icon-384x384.png",
-							"./icon-512x512.png",
+							"./icon-512x512.png"
 							]) + skipWaiting();
 							
 		})
