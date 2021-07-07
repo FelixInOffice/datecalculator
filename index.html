@@ -67,11 +67,21 @@
 
         var switcher = document.getElementById("dayNightSwitcher");
 
+        document.body.setAttribute("class",localStorage.getItem("theme"));
+
+        if (localStorage.getItem("theme") == "night") {
+            $("#dayNightSwitcher").prop("checked", true);
+        } else if (localStorage.getItem("theme") == "day") {
+            $("#dayNightSwitcher").prop("checked", false);
+        }
+
         function darkModeSwitcher() {
             if (switcher.checked) {
-                document.body.setAttribute("class","night")
+                document.body.setAttribute("class","night");
+                localStorage.setItem("theme", "night");
             } else {
-                document.body.setAttribute("class","day")
+                document.body.setAttribute("class","day");
+                localStorage.setItem("theme", "day");
             }
         }
 
@@ -138,7 +148,7 @@
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1000000);
         }
     </script>
-    
+
     <script src="./index.js" type="module"></script>
 </body>
 </html>
